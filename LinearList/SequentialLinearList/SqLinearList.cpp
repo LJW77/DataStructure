@@ -5,10 +5,10 @@
 status initList(SqList *L)
 {
 	(*L).elem = (ElemType*)malloc(LIST_INIT_SIZE * sizeof(ElemType));
-	if (!(*L).elem)                    //´æ´¢¿Õ¼ä·ÖÅäÊ§°Ü
+	if (!(*L).elem)                    //å­˜å‚¨ç©ºé—´åˆ†é…å¤±è´¥
 		exit(OVERFLOW);
-	(*L).length = 0;                   //¿Õ±í³¤¶ÈÎª0
-	(*L).listsize = LIST_INIT_SIZE;    //³õÊ¼´æ´¢ÈİÁ¿
+	(*L).length = 0;                   //ç©ºè¡¨é•¿åº¦ä¸º0
+	(*L).listsize = LIST_INIT_SIZE;    //åˆå§‹å­˜å‚¨å®¹é‡
 	return OK;
 }
 
@@ -86,12 +86,12 @@ status nextElem(SqList L, ElemType cur_e, ElemType *next_e)
 
 status listInsert(SqList *L, int i, ElemType e)
 {
-	ElemType *newbase;                   //ĞÂ»ùÖ·
-	ElemType *q;                         //qÎª²åÈëÎ»ÖÃ
+	ElemType *newbase;                   //æ–°åŸºå€
+	ElemType *q;                         //qä¸ºæ’å…¥ä½ç½®
 	ElemType *p;
-	if (i<0 || i>(*L).length)            //²åÈëÎ»ÖÃ´íÎó
+	if (i<0 || i>(*L).length)            //æ’å…¥ä½ç½®é”™è¯¯
 		return ERROR;
-	if ((*L).length >= (*L).listsize)    //ÏßĞÔ±íÒÑÂú£¬ĞèÖØĞÂ·ÖÅä¿Õ¼ä
+	if ((*L).length >= (*L).listsize)    //çº¿æ€§è¡¨å·²æ»¡ï¼Œéœ€é‡æ–°åˆ†é…ç©ºé—´
 	{
 		newbase = (ElemType*)realloc((*L).elem, ((*L).listsize + LISTINCREMENT) * sizeof(ElemType));
 		if (!newbase)
@@ -99,11 +99,11 @@ status listInsert(SqList *L, int i, ElemType e)
 		(*L).elem = newbase;
 		(*L).listsize += LISTINCREMENT;
 	}
-	q = &((*L).elem[i]);                 //²åÈëÎ»ÖÃ¼°Ö®ºóµÄÔªËØÓÒÒÆ
+	q = &((*L).elem[i]);                 //æ’å…¥ä½ç½®åŠä¹‹åçš„å…ƒç´ å³ç§»
 	for (p = &((*L).elem[(*L).length - 1]); p >= q; --p)
 		*(p + 1) = *p;
-	*q = e;                              //²åÈëe
-	++(*L).length;                       //±í³¤Ôö1
+	*q = e;                              //æ’å…¥e
+	++(*L).length;                       //è¡¨é•¿å¢1
 	return OK;
 }
 
@@ -153,37 +153,6 @@ void unionList(SqList *La, SqList Lb)
 	}
 }
 
-//void mergeList(SqList La, SqList Lb, SqList &Lc)
-//{
-//	//ÒÑÖªÏßĞÔ±íLaºÍLbÖĞµÄÊı¾İÔªËØ°´Öµ·Çµİ¼õÅÅÁĞ
-//	//¹é²¢LaºÍLbµÃµ½ĞÂµÄÏßĞÔ±íLc£¬LcµÄÊı¾İÔªËØÒ²°´Öµ·Çµİ¼õÅÅÁĞ
-//	initList(Lc);
-//	int La_Len = listLength(La);
-//	int Lb_Len = listLength(Lb);
-//	int i, j;
-//	int k = 0;
-//	for (i = 0; i < La_Len; ++i)
-//	{
-//		for (j = 0; j < Lb_Len; ++j)
-//		{
-//			if (La.elem[i] > Lb.elem[j])
-//			{
-//				listInsert(Lc, k++, Lb.elem[j]);
-//				break;
-//			}
-//			else
-//			{
-//				listInsert(Lc, k++, La.elem[i]);
-//				break;
-//			} 
-//		}
-//	}
-//	while (i < La_Len)
-//		listInsert(Lc, k++, La.elem[i++]);
-//	while (j < Lb_Len)
-//		listInsert(Lc, k++, Lb.elem[j++]);
-//}
-
 void mergeList(SqList La, SqList Lb, SqList *Lc)
 {
 	initList(Lc);
@@ -194,7 +163,7 @@ void mergeList(SqList La, SqList Lb, SqList *Lc)
 	int Lb_Len = listLength(Lb);
 	int La_elem;
 	int Lb_elem;
-	while (i < La_Len&&j < Lb_Len)//LaºÍLb¾ù·Ç¿Õ
+	while (i < La_Len&&j < Lb_Len)//Laå’ŒLbå‡éç©º
 	{
 		getElem(La, i, &La_elem);
 		getElem(Lb, j, &Lb_elem);
