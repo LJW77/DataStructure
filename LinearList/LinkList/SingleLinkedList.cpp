@@ -58,16 +58,16 @@ int listLength(LinkList L)
 
 status getElem(LinkList L, int i, ElemType &e)
 {
-	L = L->next;             //pÖ¸ÏòµÚÒ»¸ö½áµã
-	int j = 0;               //jÎª¼ÆÊıÆ÷
-	while (L&&j < i)         //Ë³Ö¸ÕëÏòºó²éÕÒ£¬Ö±µ½pÖ¸ÏòµÚi¸öÔªËØ»òpÎª¿Õ
+	L = L->next;             //pæŒ‡å‘ç¬¬ä¸€ä¸ªç»“ç‚¹
+	int j = 0;               //jä¸ºè®¡æ•°å™¨
+	while (L&&j < i)         //é¡ºæŒ‡é’ˆå‘åæŸ¥æ‰¾ï¼Œç›´åˆ°pæŒ‡å‘ç¬¬iä¸ªå…ƒç´ æˆ–pä¸ºç©º
 	{
 		L = L->next;
 		++j;
 	}
-	if (!L || j > i)         //µÚi¸öÔªËØ²»´æÔÚ
+	if (!L || j > i)         //ç¬¬iä¸ªå…ƒç´ ä¸å­˜åœ¨
 		return ERROR;
-	e = L->data;             //È¡µÚi¸öÔªËØ
+	e = L->data;             //å–ç¬¬iä¸ªå…ƒç´ 
 	return OK;
 }
 
@@ -91,12 +91,12 @@ status priorElem(LinkList L, int cur_e, ElemType &pre_e)
 	LinkList q = L->next;
 	if (cur_e == p->data)
 	{
-		printf("µÚÒ»¸öÔªËØÎŞÇ°Çı¡£\n");
+		printf("ç¬¬ä¸€ä¸ªå…ƒç´ æ— å‰é©±ã€‚\n");
 		return ERROR;
 	}
 	if (locateElem(L, cur_e) == 0)
 	{
-		printf("¸ÃÔªËØ²»ÔÙ±íÖĞ¡£\n");
+		printf("è¯¥å…ƒç´ ä¸å†è¡¨ä¸­ã€‚\n");
 		return ERROR;
 	}
 	p = p->next;
@@ -117,12 +117,12 @@ status nextElem(LinkList L, int cur_e, ElemType &next_e)
 	{
 		if (locateElem(L, cur_e) == 0)
 		{
-			printf("¸ÃÔªËØ²»ÔÙ±íÖĞ¡£\n");
+			printf("è¯¥å…ƒç´ ä¸å†è¡¨ä¸­ã€‚\n");
 			return ERROR;
 		}
 		if (p->next == NULL)
 		{
-			printf("×îºóÒ»¸öÔªËØÎŞºó¼Ì¡£\n");
+			printf("æœ€åä¸€ä¸ªå…ƒç´ æ— åç»§ã€‚\n");
 			return ERROR;
 		}
 		if (cur_e == p->data)
@@ -131,30 +131,6 @@ status nextElem(LinkList L, int cur_e, ElemType &next_e)
 	}
 	return OK;
 }
-
-//status listInsert(LinkList &L, int i, ElemType e)
-//{
-//	if (i<1 || i>listLength(L) + 1)
-//		return ERROR;
-//	LinkList p = L;
-//	L = L->next;
-//	while (L)
-//	{
-//		if (i == locateElem(L, L->data))
-//		{
-//			LinkList s = (LinkList)malloc(sizeof(LNode));
-//			if (!s)
-//				exit(OVERFLOW);
-//			s->next = p->next;
-//			p->next = s;
-//			s->data = e;
-//			break;
-//		}
-//		p = p->next;
-//		L = L->next;
-//	}
-//	return OK;
-//}
 
 status listInsert(LinkList &L, int i, ElemType e)
 {
@@ -173,23 +149,6 @@ status listInsert(LinkList &L, int i, ElemType e)
 	p->next = s;
 	return OK;
 }
-
-//status listDelete(LinkList &L, int i, ElemType &e)
-//{
-//	LinkList p = L;
-//	while (L)
-//	{
-//		p = p->next;
-//		if (i == locateElem(L, L->data))
-//		{
-//			e = L->data;
-//			L->next = L->next->next;
-//			free(p);
-//		}
-//		L = L->next;
-//	}
-//	return OK;
-//}
 
 status listDelete(LinkList &L, int i, ElemType &e)
 {
