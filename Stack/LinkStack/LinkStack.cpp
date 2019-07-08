@@ -4,7 +4,6 @@
 
 Status initStack(LinkStack &s)    
 {
-	//¹¹ÔìÒ»¸ö¿ÕÕ»
 	s.top = NULL;
 	s.count = 0;
 	return OK;
@@ -12,7 +11,6 @@ Status initStack(LinkStack &s)
 
 Status destroyStack(LinkStack &s)
 {
-	//Ïú»ÙÕ»
 	LinkStackPtr p = s.top;
 	while (p)
 	{
@@ -25,7 +23,6 @@ Status destroyStack(LinkStack &s)
 
 Status clearStack(LinkStack &s)
 {
-	//½«Õ»ÖØÖÃÎª¿Õ
 	LinkStackPtr p = s.top;
 	while (p)
 	{
@@ -40,7 +37,6 @@ Status clearStack(LinkStack &s)
 
 Status stackEmpty(LinkStack s)
 {
-	//ÅÐ¶ÏÕ»ÊÇ·ñÎª¿Õ
 	if (!s.top)
 		return TRUE;
 	return FALSE;
@@ -53,20 +49,20 @@ int stackLength(LinkStack s)
 
 Status getTop(LinkStack s, int &e)
 {
-	//ÓÃe·µ»ØÕ»¶¥ÔªËØ
+	if (stackEmpty(s))
+		return ERROR;
 	e = s.top->data;
 	return OK;
 }
 
 Status push(LinkStack &s, int e)
 {
-	//ÈëÕ»
 	LinkStackPtr p = (LinkStackPtr)malloc(sizeof(StackNode));
 	if (!p)
 		exit(OVERFLOW);
-	if (!s.top)    //µÚÒ»¸öÈëÕ»ÔªËØµÄÖ¸ÕëÓòÎª¿Õ£¬²»Ö¸ÏòÈÎºÎ½áµã
+	if (!s.top)    //ç¬¬ä¸€ä¸ªå…¥æ ˆå…ƒç´ çš„æŒ‡é’ˆåŸŸä¸ºç©ºï¼Œä¸æŒ‡å‘ä»»ä½•ç»“ç‚¹
 		p->next = NULL;
-	else           //·ñÔòÐÂÈëÕ»ÔªËØµÄÖ¸ÕëÓòÖ¸ÏòÇ°Ò»¸ö½áµã
+	else           //å¦åˆ™æ–°å…¥æ ˆå…ƒç´ çš„æŒ‡é’ˆåŸŸæŒ‡å‘å‰ä¸€ä¸ªç»“ç‚¹
 		p->next = s.top;
 	p->data = e;
 	s.top = p;
@@ -76,28 +72,30 @@ Status push(LinkStack &s, int e)
 
 Status pop(LinkStack &s, int &e)
 {
-	//ÓÃe·µ»Ø³öÕ»ÔªËØ
 	if (stackEmpty(s))
 		return ERROR;
 	e = s.top->data;
 	LinkStackPtr p = s.top;
-	if (s.top->next)
+	if (p)
 	{
 		s.top = s.top->next;
 		free(p);
+		p = s.top;
 	}
-	else
-		free(s.top);
 	s.count--;
 	return OK;
 }
 
-void stackTraverse(LinkStack s)
+void visit(int e)
 {
-	//±éÀúÕ»ÖÐÔªËØ£¬²¢½«Æä´òÓ¡
+	printf("%d ", e);
+}
+
+void stackTraverse(LinkStack s, void(*p)(int e))
+{
 	while (!stackEmpty(s))
 	{
-		printf("%d ", s.top->data);
+		(*p)(s.top->data);
 		s.top = s.top->next;
 	}
 }
