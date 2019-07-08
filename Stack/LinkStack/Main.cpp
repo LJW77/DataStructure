@@ -15,66 +15,73 @@ int main()
 			printMenu();
 			scanf_s("%d", &num);
 			if (num < 0 || num>9)
-				printf("²Ëµ¥ºÅÊäÈë´íÎó£¬ÇëÖØĞÂÊäÈë£¡\n");
+				printf("èœå•å·è¾“å…¥é”™è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ï¼\n");
 		} while (num < 0 || num>9);
+
 		switch (num)
 		{
-		case 0:    //ÍË³ö³ÌĞò
+		case 0:    
 		{
-			printf("³ÌĞòÒÑ¾­ÍË³ö¡£\n");
 			runFlag = 0;
+			printf("ç¨‹åºå·²ç»é€€å‡ºã€‚\n");
 			break;
 		}
-		case 1:    //¹¹ÔìÕ»
+		case 1:    
 		{
 			if (initStack(s))
-				printf("¹¹ÔìÕ»³É¹¦¡£\n");
+				printf("æ„é€ æ ˆæˆåŠŸã€‚\n");
+			else
+				printf("æ„é€ æ ˆå¤±è´¥ã€‚\n");
 			break;
 		}
-		case 2:    //Ïú»ÙÕ»
+		case 2:    
 		{
 			if (destroyStack(s))
-				printf("Õ»ÒÑÏú»Ù¡£\n");
+				printf("æ ˆå·²æˆåŠŸé”€æ¯ã€‚\n");
+			else
+				printf("æ ˆé”€æ¯å¤±è´¥ã€‚\n");
 			break;
 		}
-		case 3:    //Çå¿ÕÕ»
+		case 3:    
 		{
 			if (clearStack(s))
-				printf("Õ»ÒÑÇå¿Õ¡£\n");
+				printf("æ ˆå·²æˆåŠŸæ¸…ç©ºã€‚\n");
+			else
+				printf("æ ˆæ¸…ç©ºå¤±è´¥ã€‚\n");
 			break;
 		}
-		case 4:    //ÅĞ¶ÏÕ»ÊÇ·ñÎª¿Õ
+		case 4:   
 		{
 			if (stackEmpty(s))
-				printf("Õ»Îª¿Õ¡£\n");
+				printf("æ ˆä¸ºç©ºã€‚\n");
 			else
-				printf("Õ»·Ç¿Õ¡£\n");
+				printf("æ ˆéç©ºã€‚\n");
 			break;
 		}
-		case 5:    //¼ÆËãÕ»µÄ³¤¶È
+		case 5:    
 		{
 			int len = stackLength(s);
-			printf("Õ»µÄ³¤¶ÈÎª£º%d\n", len);
+			printf("æ ˆçš„é•¿åº¦ä¸ºï¼š%d\n", len);
 			break;
 		}
-		case 6:    //»ñÈ¡Õ»¶¥ÔªËØ
+		case 6:    
 		{
 			int e;
 			getTop(s, e);
-			printf("Õ»¶¥ÔªËØÎª:%d\n", e);
+			printf("æ ˆé¡¶å…ƒç´ ä¸º:%d\n", e);
 			break;
 		}
-		case 7:    //ÔªËØÈëÕ»
+		case 7:    
 		{
 			int i;
 			for (i = 0; i < 10; ++i)
 				push(s, i);
 			break;
 		}
-		case 8:    //ÔªËØ³öÕ»
+		case 8:    
 		{
 			int i, e;
-			printf("³öÕ»ÔªËØÎª£º");
+			printf("å‡ºæ ˆå…ƒç´ ä¸ºï¼š");
 			for (i = 0; i < 5; ++i)
 			{ 
 				pop(s, e);
@@ -83,12 +90,12 @@ int main()
 			printf("\n");
 			break;
 		}
-		case 9:    //±éÀúÕ»ÖĞÔªËØ
+		case 9:    
 		{
 			if (stackEmpty(s))
-				printf("Õ»Îª¿Õ¡£\n");
+				printf("æ ˆä¸ºç©ºã€‚\n");
 			else
-				stackTraverse(s);
+				stackTraverse(s, visit);
 			printf("\n");
 			break;
 		}
@@ -99,18 +106,18 @@ int main()
 
 void printMenu()
 {
-	printf("         Õ»µÄ»ù±¾²Ù×÷         \n");
+	printf("         æ ˆçš„åŸºæœ¬æ“ä½œ         \n");
 	printf("------------------------------\n");
-	printf("*        1-¹¹ÔìÕ»            *\n");
-	printf("*        2-Ïú»ÙÕ»            *\n");
-	printf("*        3-Çå¿ÕÕ»            *\n");
-	printf("*        4-ÅĞ¶ÏÕ»ÊÇ·ñÎª¿Õ    *\n");
-	printf("*        5-¼ÆËãÕ»µÄ³¤¶È      *\n");
-	printf("*        6-»ñÈ¡Õ»¶¥ÔªËØ      *\n");
-	printf("*        7-ÈëÕ»              *\n");
-	printf("*        8-³öÕ»              *\n");
-	printf("*        9-±éÀúÕ»            *\n");
-	printf("*        0-ÍË³ö              *\n");
+	printf("*        1-æ„é€ æ ˆ            *\n");
+	printf("*        2-é”€æ¯æ ˆ            *\n");
+	printf("*        3-æ¸…ç©ºæ ˆ            *\n");
+	printf("*        4-åˆ¤æ–­æ ˆæ˜¯å¦ä¸ºç©º    *\n");
+	printf("*        5-è®¡ç®—æ ˆçš„é•¿åº¦      *\n");
+	printf("*        6-è·å–æ ˆé¡¶å…ƒç´       *\n");
+	printf("*        7-å…¥æ ˆ              *\n");
+	printf("*        8-å‡ºæ ˆ              *\n");
+	printf("*        9-éå†æ ˆ            *\n");
+	printf("*        0-é€€å‡º              *\n");
 	printf("------------------------------\n");
-	printf("      ÇëÑ¡Ôñ²Ëµ¥ºÅ(0-9):      \n");
+	printf("      è¯·é€‰æ‹©èœå•å·(0-9):      \n");
 }
